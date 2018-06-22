@@ -1,4 +1,8 @@
 
+import auth.User;
+import io.dropwizard.auth.Auth;
+
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,9 +28,10 @@ public class ProjectResource {
     }
 
     @GET
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getProjects() {
+    public Response getProjects(@Auth User user) {
         ApiData data = this.helper.getProjects();
         ApiResponse response = new ApiResponse();
         response.setData(data);
